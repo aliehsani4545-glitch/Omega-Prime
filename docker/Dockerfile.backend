@@ -1,0 +1,35 @@
+# Omega Prime X — Backend (Fastify + TS via tsx)
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Install dependencies first for better layer caching.
+COPY package.json package-lock.json* ./
+RUN npm install --no-audit --no-fund
+
+# Copy the monorepo source (engines live at repo root alongside backend/).
+COPY tsconfig.json tsconfig.build.json vitest.config.ts ./
+COPY domain ./domain
+COPY database ./database
+COPY connectors ./connectors
+COPY regime_engine ./regime_engine
+COPY thesis_engine ./thesis_engine
+COPY intelligence ./intelligence
+COPY causal_graph ./causal_graph
+COPY backtesting ./backtesting
+COPY scoring ./scoring
+COPY skeptic ./skeptic
+COPY learning ./learning
+COPY memory ./memory
+COPY agents ./agents
+COPY orchestration ./orchestration
+COPY reports ./reports
+COPY backend ./backend
+COPY scripts ./scripts
+
+ENV NODE_ENV=production
+ENV BACKEND_PORT=8080
+ENV BACKEND_HOST=0.0.0.0
+EXPOSE 8080
+
+CMD ["npx", "tsx", "backend/src/server.ts"]

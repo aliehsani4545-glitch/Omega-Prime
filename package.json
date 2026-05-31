@@ -1,0 +1,36 @@
+{
+  "name": "omega-prime-x",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Omega Prime X — Autonomous Market Intelligence Organism. Optimizes for Expectation Expansion Potential (EEP) and Reality Divergence ahead of consensus.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx watch backend/src/server.ts",
+    "start": "tsx backend/src/server.ts",
+    "seed": "tsx scripts/seed.ts",
+    "pipeline": "tsx scripts/run-pipeline.ts",
+    "optimize": "tsx scripts/optimize.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc -p tsconfig.build.json || true"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "fastify": "^4.28.1",
+    "pg": "^8.13.0",
+    "pino": "^9.4.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "@types/pg": "^8.11.10",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
+  }
+}

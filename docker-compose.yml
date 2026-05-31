@@ -1,0 +1,64 @@
+name: omega-prime-x
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-omega}
+      POSTGRES_USER: ${POSTGRES_USER:-omega}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-omega}
+    ports:
+      - "5432:5432"
+    volumes:
+      - omega_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-omega} -d ${POSTGRES_DB:-omega}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    environment:
+      NODE_ENV: production
+      BACKEND_PORT: 8080
+      BACKEND_HOST: 0.0.0.0
+      CORS_ORIGIN: http://localhost:3000
+      # Default to in-memory so the stack works even without DB; set "postgres" for persistence.
+      DATA_BACKEND: ${DATA_BACKEND:-memory}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-omega}:${POSTGRES_PASSWORD:-omega}@postgres:5432/${POSTGRES_DB:-omega}
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8080
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  omega_pg:

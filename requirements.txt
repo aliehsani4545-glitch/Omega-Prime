@@ -1,0 +1,13 @@
+# ======================================================================
+# Optional Python analytics/NLP helpers.
+# The core platform is TypeScript/Node and requires NONE of these to run.
+# These are provided for the upgrade path where transcript NLP, embeddings,
+# or statistical backtesting helpers are added (see docs/UPGRADE_PATHS.md).
+# Install only if you enable the optional `connectors/python` adapters.
+# ======================================================================
+# pandas>=2.2
+# numpy>=1.26
+# scikit-learn>=1.4
+# spacy>=3.7
+# sentence-transformers>=3.0
+# httpx>=0.27

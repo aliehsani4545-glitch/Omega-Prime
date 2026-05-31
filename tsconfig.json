@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "types": ["node"],
+    "strict": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": false,
+    "noEmit": true
+  },
+  "include": [
+    "domain/**/*.ts",
+    "database/**/*.ts",
+    "regime_engine/**/*.ts",
+    "thesis_engine/**/*.ts",
+    "intelligence/**/*.ts",
+    "causal_graph/**/*.ts",
+    "backtesting/**/*.ts",
+    "scoring/**/*.ts",
+    "skeptic/**/*.ts",
+    "learning/**/*.ts",
+    "memory/**/*.ts",
+    "connectors/**/*.ts",
+    "agents/**/*.ts",
+    "orchestration/**/*.ts",
+    "reports/**/*.ts",
+    "backend/**/*.ts",
+    "scripts/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "frontend"]
+}

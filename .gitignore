@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.next/
+out/
+coverage/
+*.log
+.env
+.env.local
+.DS_Store
+.vitest/
+frontend/node_modules/
+frontend/.next/
+*.tsbuildinfo
+reports/latest.md
